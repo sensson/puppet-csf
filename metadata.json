@@ -1,0 +1,12 @@
+{
+	"name": "sensson-csf",
+	"version": "0.2.1",
+	"author": "sensson",
+	"license": "Licensed under (Apache 2.0)",
+	"summary": "A CSF management module",
+	"source": "https://github.com/sensson/sensson-csf",
+	"dependencies": [
+		{ "name": "puppetlabs/stdlib", "version_requirement": ">=4.3.2" },
+		{ "name": "puppetlabs/concat", "version_requirement": ">=1.1.1" },
+	]
+}
