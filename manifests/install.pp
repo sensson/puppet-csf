@@ -1,8 +1,12 @@
 class csf::install inherits csf {
 	# this installs csf and reloads it
-	package { 'iptables-ipv6': 
-		ensure => installed,
-	} ->
+	if $::operatingsystem == 'CentOS' and $::operatingsystemmajrelease != '7' {
+		package { 'iptables-ipv6': 
+			ensure => installed,
+			before => Exec['csf-install'],
+		}
+	}
+
 	exec { 'csf-install': 
 		cwd	=> "/tmp",
 		command => "/usr/bin/wget -N http://www.configserver.com/free/csf.tgz && tar -xzf csf.tgz && cd csf && sh install.sh",
