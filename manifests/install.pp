@@ -7,11 +7,16 @@ class csf::install inherits csf {
 		}
 	}
 
+	package { 'csf-perl':
+		name	=> 'perl',
+		ensure	=> installed,
+	} ->
 	exec { 'csf-install': 
 		cwd	=> "/tmp",
 		command => "/usr/bin/wget -N http://www.configserver.com/free/csf.tgz && tar -xzf csf.tgz && cd csf && sh install.sh",
 		creates	=> "/usr/sbin/csf",
 		notify	=> Exec['csf-reload'],
+		require	=> Package['csf-perl'],
 	}
 	
 	# make sure testing is disabled, we trust puppet enough
