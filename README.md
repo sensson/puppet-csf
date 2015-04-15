@@ -98,3 +98,19 @@ need to run rules before other parts are initialized.
 
 Removing a csf::rule from your configuration will automatically remove it from
 the running config as well.
+
+## Hiera
+
+We support hiera.
+
+```
+csf::ipv4::input::ports:
+  '82':
+    proto: udp
+  '81': {}
+```
+
+Will open up port 82 UDP and 81 TCP. Similar Hiera settings are available for
+`csf::ipv4::output::ports`, `csf::allow::hosts`, `csf::ignore::hosts` and
+`csf::deny::hosts`. Setting {} is required when you're not specifying any other
+parameters. All settings from the parent are supported.
