@@ -50,7 +50,10 @@ csf::ipv4::input  { '3306':
 ```
 
 Of course, you can use arrays too to open up more ports at the same time
+
+```
 csf::ipv4::input { [ '80', '443' ]: }
+```
 
 As soon as you remove a port it will not be part of the configuration
 any more.
