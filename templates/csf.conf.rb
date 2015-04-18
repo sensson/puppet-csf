@@ -2022,4 +2022,7 @@ OLD_REAPER = "0"
 # For internal use only. You should not enable this option as it could cause
 # instability in csf and lfd
 DEBUG = "0"
+
+# Required for CentOS 7+
+SYSTEMCTL = "/usr/bin/systemctl"
 ###############################################################################
