@@ -10,6 +10,7 @@ define csf::global($ipaddress = '127.0.0.1', $type = 'ignore', $ensure = 'presen
 				match	=> "$ipaddress.*",
 				ensure	=> $ensure,
 				require	=> Exec['csf-install'],
+				notify	=> Exec['csf-reload'],
 			}
 		}
 	}
