@@ -59,7 +59,7 @@ class csf(
 	$csf_ipv4_output_ports = hiera('csf::ipv4::output::ports', {})
 	$csf_allow_hosts = hiera('csf::allow::hosts', {})
 	$csf_ignore_hosts = hiera('csf::ignore::hosts', {})
-	$csf_deny_hosts = hiera('csf::deny:hosts', {})
+	$csf_deny_hosts = hiera('csf::deny::hosts', {})
 	create_resources(csf::ipv4::input, $csf_ipv4_input_ports)
 	create_resources(csf::ipv4::output, $csf_ipv4_output_ports)
 	create_resources(csf::allow, $csf_allow_hosts)
