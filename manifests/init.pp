@@ -11,14 +11,14 @@ class csf(
   exec { 'csf-reload':
     command     => '/usr/sbin/csf -e; /usr/sbin/csf -r',
     refreshonly => true,
-    onlyif      => 'test -f /etc/csf/csf.conf',
+    onlyif      => '/usr/bin/test -f /etc/csf/csf.conf',
   }
 
   # This is a just an 'in case it does not work' scenario, if CSF blocks port 
   # 8140, make sure it stays open
   exec { 'csf-open-puppet':
-    command => 'iptables -I OUTPUT -p tcp --dport 8140 -j ACCEPT',
-    unless  => 'iptables -L OUTPUT -n | grep "8140"',
+    command => '/usr/sbin/iptables -I OUTPUT -p tcp --dport 8140 -j ACCEPT',
+    unless  => '/usr/sbin/iptables -L OUTPUT -n | grep "8140"',
   }
   
   # Set up a header for /etc/csf/csfpost.sh so people do not make changes to it
