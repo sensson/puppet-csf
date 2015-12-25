@@ -17,8 +17,8 @@ class csf(
   # This is a just an 'in case it does not work' scenario, if CSF blocks port 
   # 8140, make sure it stays open
   exec { 'csf-open-puppet':
-    command => '/usr/sbin/iptables -I OUTPUT -p tcp --dport 8140 -j ACCEPT',
-    unless  => '/usr/sbin/iptables -L OUTPUT -n | grep "8140"',
+    command => '/sbin/iptables -I OUTPUT -p tcp --dport 8140 -j ACCEPT',
+    unless  => '/sbin/iptables -L OUTPUT -n | grep "8140"',
   }
   
   # Set up a header for /etc/csf/csfpost.sh so people do not make changes to it
