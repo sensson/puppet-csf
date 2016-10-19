@@ -1,13 +1,13 @@
 # csf::config
-class csf::config {
-  if $::csf::manage_config == true {
-    file { '/etc/csf/csf.conf':
-      owner   => root,
-      group   => root,
-      mode    => '0600',
-      content => template('csf/csf.conf.rb'),
-      require => Exec['csf-install'],
-      notify  => Exec['csf-reload'],
-    }
+define csf::config($ensure = 'present', $value = '') {
+  if $value == '' { fail("Please set a value for ${title}") }
+
+  file_line { "config-set-${title}-${value}":
+    ensure  => $ensure,
+    path    => '/etc/csf/csf.conf',
+    line    => "${title} = \"${value}\"",
+    match   => "^${title} =",
+    require => Exec['csf-install'],
+    notify  => Exec['csf-reload'],
   }
 }
