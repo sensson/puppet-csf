@@ -1,10 +1,10 @@
 # csf::global
 define csf::global($ipaddress = '127.0.0.1', $type = 'ignore', $ensure = 'present', $comment = 'puppet') {
   case $type {
-    default: { err ( "unknown value ${type}" ) }
-    ignore,
-    deny,
-    allow: {
+    default: { fail( "unknown value ${type}" ) }
+    'ignore',
+    'deny',
+    'allow': {
       file_line { "csf-${ipaddress}-${type}":
         ensure  => $ensure,
         path    => "/etc/csf/csf.${type}",
