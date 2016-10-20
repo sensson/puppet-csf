@@ -28,7 +28,7 @@ describe 'csf::install', :type => :class do
 
           # check our configuration
           it { is_expected.to contain_csf__config('TESTING').with('value' => '0') }
-          it { is_expected.to contain_file_line('config-set-TESTING-0') }
+          it { is_expected.to contain_file_line('csf-config-set-TESTING-0') }
 
           # make sure port 8140 is always open
           it { is_expected.to contain_csf__ipv4__output('8140').with('require' => 'Exec[csf-install]') }

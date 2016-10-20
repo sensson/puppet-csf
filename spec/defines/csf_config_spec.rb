@@ -22,12 +22,12 @@ describe 'csf::config', :type => :define do
             :value => 'bar',
           }}
 
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('ensure' => 'present') }
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('path' => '/etc/csf/csf.conf') }
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('line' => 'foo = "bar"') }
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('match' => '^foo =') }
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('require' => 'Exec[csf-install]') }
-          it { is_expected.to contain_file_line('config-set-foo-bar').with('notify' => 'Exec[csf-reload]') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('ensure' => 'present') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('path' => '/etc/csf/csf.conf') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('line' => 'foo = "bar"') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('match' => '^foo =') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('require' => 'Exec[csf-install]') }
+          it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('notify' => 'Exec[csf-reload]') }
         end
       end
     end 
