@@ -305,6 +305,8 @@ rules in a particular order. Defaults to '99'
 
 This module has been tested on:
 
+* Debian 7
+* Debian 8
 * CentOS 6
 * CentOS 7
 * Ubuntu 14.04
@@ -351,6 +353,8 @@ You can run Beaker tests with:
 
 ```
 bundle exec rake spec_prep
+BEAKER_destroy=onpass bundle exec rake beaker:debian7
+BEAKER_destroy=onpass bundle exec rake beaker:debian8
 BEAKER_destroy=onpass bundle exec rake beaker:centos6
 BEAKER_destroy=onpass bundle exec rake beaker:centos7
 BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1404
