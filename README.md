@@ -68,7 +68,7 @@ csf::allow { '192.168.0.0/24': ensure => absent, }
 Similar functions are available for csf::ignore and csf::deny. All of these
 functions accept arrays too.
 
-#### Add an advanced rules to CSF
+#### Add advanced rules to CSF
 
 This module allows you to set up advanced iptables rules if you need to. 
 
