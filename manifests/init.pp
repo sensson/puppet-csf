@@ -1,9 +1,11 @@
 # csf
 class csf(
-  $download_location = $::csf::params::download_location
+  $download_location = $::csf::params::download_location,
+  $docker = $::csf::params::docker
 ) inherits csf::params {
   # Install and configure CSF as required
   include ::csf::install
+  include ::csf::docker
 
   # This controls CSF restarts - keep in mind that this will also enable it.
   exec { 'csf-reload':

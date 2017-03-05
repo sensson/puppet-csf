@@ -117,6 +117,10 @@ supported.
 
 This allows you to override the download location. Defaults to https://download.configserver.com/csf.tgz 
 
+##### `docker`
+
+This allows you to enable or disable support for Docker. Defaults to 'absent'.
+
 ### Defines
 
 #### csf::config
@@ -319,6 +323,13 @@ of saying thanks.
 
 This module is tested against the Ruby versions from Puppet's support
 matrix. Please make sure you have a supported version of Ruby installed.
+
+Should you wish to clone this repository you have to make sure that you
+clone it recursively. This Puppet module uses git submodules.
+
+```
+git clone --recursive git@github.com:sensson/puppet-csf.git
+```
 
 If you want to contribute please:
 
