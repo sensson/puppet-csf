@@ -25,7 +25,7 @@ describe 'csf', :type => :class do
           # /etc/csf/csfpost.sh
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('ensure' => 'present') }
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('ensure_newline' => 'true' ) }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('mode' => '0711' ) }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('mode' => '0700' ) }
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('order' => 'numeric' ) }
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('require' => 'Exec[csf-install]' ) }
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('notify' => 'Exec[csf-reload]' ) }
@@ -35,7 +35,7 @@ describe 'csf', :type => :class do
           # /etc/csf/csfpre.sh
           it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('ensure' => 'present') }
           it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('ensure_newline' => 'true') }
-          it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('mode' => '0711') }
+          it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('mode' => '0700') }
           it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('order' => 'numeric') }
           it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('require' => 'Exec[csf-install]') }
           it { is_expected.to contain_concat('/etc/csf/csfpre.sh').with('notify' => 'Exec[csf-reload]') }

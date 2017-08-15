@@ -39,7 +39,7 @@ class csf(
   concat { '/etc/csf/csfpost.sh':
     ensure         => present,
     ensure_newline => true,
-    mode           => '0711',
+    mode           => '0700',
     force          => true,
     order          => 'numeric',
     require        => Exec['csf-install'],
@@ -50,7 +50,7 @@ class csf(
   concat { '/etc/csf/csfpre.sh':
     ensure         => present,
     ensure_newline => true,
-    mode           => '0711',
+    mode           => '0700',
     force          => true,
     order          => 'numeric',
     require        => Exec['csf-install'],
