@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'csf', :type => :class do
+describe 'csf' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -7,7 +7,7 @@ describe 'csf', :type => :class do
           facts
         end
 
-        context "csf class with parameters" do
+        context 'csf class with parameters' do
           it { is_expected.to compile.with_all_deps }
 
           # verify classes
@@ -24,11 +24,11 @@ describe 'csf', :type => :class do
 
           # /etc/csf/csfpost.sh
           it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('ensure' => 'present') }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('ensure_newline' => 'true' ) }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('mode' => '0700' ) }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('order' => 'numeric' ) }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('require' => 'Exec[csf-install]' ) }
-          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('notify' => 'Exec[csf-reload]' ) }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('ensure_newline' => 'true') }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('mode' => '0700') }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('order' => 'numeric') }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('require' => 'Exec[csf-install]') }
+          it { is_expected.to contain_concat('/etc/csf/csfpost.sh').with('notify' => 'Exec[csf-reload]') }
           it { is_expected.to contain_concat__fragment('csf-post-header').with('target' => '/etc/csf/csfpost.sh') }
           it { is_expected.to contain_concat__fragment('csf-post-header').with('order' => '00') }
 
@@ -42,8 +42,7 @@ describe 'csf', :type => :class do
           it { is_expected.to contain_concat__fragment('csf-pre-header').with('target' => '/etc/csf/csfpre.sh') }
           it { is_expected.to contain_concat__fragment('csf-pre-header').with('order' => '00') }
         end
-
       end
-    end 
+    end
   end
 end

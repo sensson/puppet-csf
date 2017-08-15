@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'csf::rule', :type => :define do
+describe 'csf::rule' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -11,18 +11,24 @@ describe 'csf::rule', :type => :define do
           'foo'
         end
 
-        context "csf::rule with parameters" do
-          let(:params) {{
-            :content => 'bar',
-            :order => '2',
-            :target => '/etc/csf/csfpre.sh'
-          }}
+        let(:pre_condition) do
+          'class { "::csf": }'
+        end
 
-          it { is_expected.to contain_concat__fragment('foo').with('content' => 'bar') }
-          it { is_expected.to contain_concat__fragment('foo').with('order' => '2') }
-          it { is_expected.to contain_concat__fragment('foo').with('target' => '/etc/csf/csfpre.sh') }
+        context 'csf::rule with parameters' do
+          let(:params) do
+            {
+              content: 'bar',
+              order: '2',
+              target: '/etc/csf/csfpre.sh'
+            }
+          end
+
+          it { is_expected.to contain_concat__fragment('foo').with_content('bar') }
+          it { is_expected.to contain_concat__fragment('foo').with_order('2') }
+          it { is_expected.to contain_concat__fragment('foo').with_target('/etc/csf/csfpre.sh') }
         end
       end
-    end 
+    end
   end
 end

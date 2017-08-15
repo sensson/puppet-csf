@@ -24,14 +24,14 @@ class csf(
   # Set up a header for /etc/csf/csfpost.sh so people do not make changes to it
   concat::fragment { 'csf-post-header':
     target  => '/etc/csf/csfpost.sh',
-    content => template('csf/csf_header.rb'),
+    content => template('csf/csf_header.erb'),
     order   => '00',
   }
 
   # Set up a header for /etc/csf/csfpre.sh so people do not make changes to it
   concat::fragment { 'csf-pre-header':
     target  => '/etc/csf/csfpre.sh',
-    content => template('csf/csf_header.rb'),
+    content => template('csf/csf_header.erb'),
     order   => '00',
   }
 
@@ -40,7 +40,6 @@ class csf(
     ensure         => present,
     ensure_newline => true,
     mode           => '0700',
-    force          => true,
     order          => 'numeric',
     require        => Exec['csf-install'],
     notify         => Exec['csf-reload'],
@@ -51,7 +50,6 @@ class csf(
     ensure         => present,
     ensure_newline => true,
     mode           => '0700',
-    force          => true,
     order          => 'numeric',
     require        => Exec['csf-install'],
     notify         => Exec['csf-reload'],
