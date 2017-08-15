@@ -11,8 +11,8 @@ class csf::install inherits csf {
   package { 'csf-perl':
     ensure => installed,
     name   => 'perl',
-  } ->
-  exec { 'csf-install':
+  }
+  -> exec { 'csf-install':
     cwd     => '/tmp',
     command => "/usr/bin/wget -N ${::csf::download_location} && tar -xzf csf.tgz && cd csf && sh install.sh",
     creates => '/usr/sbin/csf',

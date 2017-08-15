@@ -1,6 +1,6 @@
 {
   "name": "sensson-csf",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "sensson",
   "license": "Apache-2.0",
   "summary": "A module to manage ConfigServer Firewall and the Login Failure Daemon",
@@ -14,7 +14,7 @@
     { "operatingsystem": "Debian", "operatingsystemrelease": [ "7", "8" ] }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">=4.3.2" },
-    { "name": "puppetlabs/concat", "version_requirement": ">=1.1.1" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">=4.3.2 < 5.0.0" },
+    { "name": "puppetlabs/concat", "version_requirement": ">=1.1.1 < 5.0.0" }
   ]
 }

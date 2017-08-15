@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'csf::install', :type => :class do
+describe 'csf::install' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -7,7 +7,7 @@ describe 'csf::install', :type => :class do
           facts
         end
 
-        context "csf::install class with parameters" do
+        context 'csf::install class with parameters' do
           it { is_expected.to compile.with_all_deps }
 
           # verify classes
@@ -19,7 +19,7 @@ describe 'csf::install', :type => :class do
           it { is_expected.to contain_exec('csf-install').with('command' => '/usr/bin/wget -N https://download.configserver.com/csf.tgz && tar -xzf csf.tgz && cd csf && sh install.sh') }
           it { is_expected.to contain_exec('csf-install').with('creates' => '/usr/sbin/csf') }
           it { is_expected.to contain_exec('csf-install').with('notify' => 'Exec[csf-reload]') }
-          it { is_expected.to contain_exec('csf-install').with('require' => 'Package[csf-perl]') }          
+          it { is_expected.to contain_exec('csf-install').with('require' => 'Package[csf-perl]') }
 
           if facts[:operatingsystem] == 'CentOS' && facts[:operatingsystemmajrelease] != '7'
             it { is_expected.to contain_package('iptables-ipv6').with('ensure' => 'installed') }
@@ -35,8 +35,7 @@ describe 'csf::install', :type => :class do
           it { is_expected.to contain_csf__rule('csf-tcp-OUTPUT-8140') }
           it { is_expected.to contain_concat__fragment('csf-tcp-OUTPUT-8140') }
         end
-
       end
-    end 
+    end
   end
 end

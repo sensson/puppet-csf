@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'csf::docker', :type => :class do
+describe 'csf::docker' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -7,7 +7,7 @@ describe 'csf::docker', :type => :class do
           facts
         end
 
-        context "csf::docker class without parameters" do
+        context 'csf::docker class without parameters' do
           it { is_expected.to compile.with_all_deps }
 
           # verify classes
@@ -17,10 +17,10 @@ describe 'csf::docker', :type => :class do
           it { is_expected.to contain_file('/etc/csf/docker.sh') }
           it { is_expected.to contain_file('/etc/csf/docker.sh').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/csf/docker.sh').with_mode('0755') }
-          it { is_expected.to contain_file('/etc/csf/docker.sh').with_content(/bin\/sh/) }
+          it { is_expected.to contain_file('/etc/csf/docker.sh').with_content(%r{/bin/sh}) }
         end
 
-        context "csf::docker class with paramters" do
+        context 'csf::docker class with paramters' do
           let(:pre_condition) do
             'class { "::csf": docker => present }'
           end
@@ -30,8 +30,7 @@ describe 'csf::docker', :type => :class do
           it { is_expected.to contain_csf__rule('csf-rule-docker').with_content('. /etc/csf/docker.sh') }
           it { is_expected.to contain_concat__fragment('csf-rule-docker') }
         end
-
       end
-    end 
+    end
   end
 end

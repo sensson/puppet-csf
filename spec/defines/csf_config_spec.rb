@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'csf::config', :type => :define do
+describe 'csf::config' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -11,16 +11,22 @@ describe 'csf::config', :type => :define do
           'foo'
         end
 
-        context "csf::config without parameters" do
+        let(:pre_condition) do
+          'class { "::csf": }'
+        end
+
+        context 'csf::config without parameters' do
           it 'fails' do
             expect { subject.call } .to raise_error(/Please set a value for/)
           end
         end
 
-        context "csf::config with parameters" do
-          let(:params) {{
-            :value => 'bar',
-          }}
+        context 'csf::config with parameters' do
+          let(:params) do
+            {
+              value: 'bar'
+            }
+          end
 
           it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('ensure' => 'present') }
           it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('path' => '/etc/csf/csf.conf') }
@@ -30,6 +36,6 @@ describe 'csf::config', :type => :define do
           it { is_expected.to contain_file_line('csf-config-set-foo-bar').with('notify' => 'Exec[csf-reload]') }
         end
       end
-    end 
+    end
   end
 end
