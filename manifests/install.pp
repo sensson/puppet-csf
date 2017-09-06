@@ -16,7 +16,7 @@ class csf::install inherits csf {
     cwd     => '/tmp',
     command => "/usr/bin/wget -N ${::csf::download_location} && tar -xzf csf.tgz && cd csf && sh install.sh",
     creates => '/usr/sbin/csf',
-    notify  => Exec['csf-reload'],
+    notify  => Service['csf'],
     require => Package['csf-perl'],
   }
 

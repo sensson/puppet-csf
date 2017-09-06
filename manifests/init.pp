@@ -1,17 +1,19 @@
 # csf
-class csf(
+class csf (
   $download_location = $::csf::params::download_location,
-  $docker = $::csf::params::docker
+  $service_ensure = $::csf::params::service_ensure,
+  $service_enable = $::csf::params::service_enable,
+  $docker = $::csf::params::docker,
 ) inherits csf::params {
   # Install and configure CSF as required
   include ::csf::install
   include ::csf::docker
 
   # This controls CSF restarts - keep in mind that this will also enable it.
-  exec { 'csf-reload':
-    command     => '/usr/sbin/csf -e; /usr/sbin/csf -r',
-    refreshonly => true,
-    onlyif      => '/usr/bin/test -f /etc/csf/csf.conf',
+  service { 'csf':
+    ensure  => $service_ensure,
+    enable  => $service_enable,
+    require => Class['::csf::install'],
   }
 
   # This is just an 'in case it does not work' scenario, if CSF blocks port 
@@ -42,7 +44,7 @@ class csf(
     mode           => '0700',
     order          => 'numeric',
     require        => Exec['csf-install'],
-    notify         => Exec['csf-reload'],
+    notify         => Service['csf'],
   }
 
   # Create /etc/csf/csfpre.sh, only when it's installed
@@ -52,7 +54,7 @@ class csf(
     mode           => '0700',
     order          => 'numeric',
     require        => Exec['csf-install'],
-    notify         => Exec['csf-reload'],
+    notify         => Service['csf'],
   }
 
   # Create a set of resources that you can specify in Hiera

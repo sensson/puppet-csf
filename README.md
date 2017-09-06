@@ -117,6 +117,14 @@ supported.
 
 This allows you to override the download location. Defaults to https://download.configserver.com/csf.tgz 
 
+##### `service_ensure`
+
+This allows you to set the ensure flag on the CSF service. Defaults to 'running'.
+
+##### `service_enable`
+
+This allows you to set the enable flag on the CSF service. Defaults to 'true'.
+
 ##### `docker`
 
 This allows you to enable or disable support for Docker. Defaults to 'absent'.

@@ -8,6 +8,6 @@ define csf::config($ensure = 'present', $value = '') {
     line    => "${title} = \"${value}\"",
     match   => "^${title} =",
     require => Exec['csf-install'],
-    notify  => Exec['csf-reload'],
+    notify  => Service['csf'],
   }
 }

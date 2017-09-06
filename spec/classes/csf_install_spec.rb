@@ -1,10 +1,12 @@
 require 'spec_helper'
+require_relative '../facts.rb'
+
 describe 'csf::install' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
-          facts
+          facts.merge(Facts.override_facts)
         end
 
         context 'csf::install class with parameters' do
@@ -18,7 +20,7 @@ describe 'csf::install' do
           it { is_expected.to contain_exec('csf-install').with('cwd' => '/tmp') }
           it { is_expected.to contain_exec('csf-install').with('command' => '/usr/bin/wget -N https://download.configserver.com/csf.tgz && tar -xzf csf.tgz && cd csf && sh install.sh') }
           it { is_expected.to contain_exec('csf-install').with('creates' => '/usr/sbin/csf') }
-          it { is_expected.to contain_exec('csf-install').with('notify' => 'Exec[csf-reload]') }
+          it { is_expected.to contain_exec('csf-install').with('notify' => 'Service[csf]') }
           it { is_expected.to contain_exec('csf-install').with('require' => 'Package[csf-perl]') }
 
           if facts[:operatingsystem] == 'CentOS' && facts[:operatingsystemmajrelease] != '7'
