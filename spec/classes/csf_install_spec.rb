@@ -1,10 +1,12 @@
 require 'spec_helper'
+require_relative '../facts.rb'
+
 describe 'csf::install' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
-          facts
+          facts.merge(Facts.override_facts)
         end
 
         context 'csf::install class with parameters' do
