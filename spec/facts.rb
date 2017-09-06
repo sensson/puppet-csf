@@ -6,5 +6,5 @@ end
 
 Facts.override_facts = {
   # Override/set concat_basedir
-  concat_basedir: '/tmp/concat',
+  concat_basedir: '/tmp/concat'
 }
