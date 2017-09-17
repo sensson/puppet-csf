@@ -1,3 +1,0 @@
-[submodule "templates/post-docker"]
-	path = templates/post-docker
-	url = https://github.com/juliengk/csf-post-docker.git
