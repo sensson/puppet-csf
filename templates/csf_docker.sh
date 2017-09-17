@@ -105,7 +105,7 @@ open_port() {
 
         : "${container:?container needs to be set}"
         : "${dport:?dport needs to be set}"
-        : "${port:?dport needs to be set}"
+        : "${port:?port needs to be set}"
 
         ipaddress=$(docker inspect $container -f "{{(index .NetworkSettings.Networks \"${network}\").IPAddress}}")
         iptables -t nat -A DOCKER -p tcp -m tcp -s $ip_source --dport $dport -j DNAT --to-destination $ipaddress:$port
@@ -127,3 +127,4 @@ iptables -A DOCKER-ISOLATION -j RETURN
 # iptables -t nat -A DOCKER ! -i docker0 -p tcp -m tcp -s SOURCE --dport 8000 -j DNAT --to-destination 172.17.0.2:80
 # or
 # open_port gifted_einstein 8000 80 192.168.0.0/24 data_network
+
