@@ -19,7 +19,7 @@ describe 'csf::docker' do
           it { is_expected.to contain_file('/etc/csf/docker.sh') }
           it { is_expected.to contain_file('/etc/csf/docker.sh').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/csf/docker.sh').with_mode('0755') }
-          it { is_expected.to contain_file('/etc/csf/docker.sh').with_content(%r{/bin/sh}) }
+          it { is_expected.to contain_file('/etc/csf/docker.sh').with_content(%r{/bin/bash}) }
         end
 
         context 'csf::docker class with paramters' do
