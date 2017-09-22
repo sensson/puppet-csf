@@ -8,6 +8,8 @@
 #
 # If Docker restarts you may need to restart the firewall too.
 #
+# Credits to Julien Kassar for his work to inspire us to come to this version.
+#
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
