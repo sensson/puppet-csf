@@ -2,18 +2,19 @@
 #
 # Docker firewall rules
 #
-# We do not accept incoming traffic by default and it's recommended to
-# turn off the Docker implementation of iptables. This will handle all
-# rules for you instead.
+# It does not accept incoming traffic to containers by default.
 #
-# If Docker restarts you may need to restart the firewall too.
+# Make sure to disable Docker's iptables management with --iptables=false.
+#
+# CSF needs to be restarted whenever you make structural changes to Docker
+# such as your networks, bridges or IP configuration.
 #
 # Credits to Julien Kassar for his work to inspire us to come to this version.
 #
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-# BASIC FIREWALL RULES
+# Basic firewall rules
 iptables -N DOCKER
 iptables -N DOCKER-ISOLATION
 iptables -t nat -A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
@@ -39,6 +40,7 @@ setup_bridge() {
         echo "DONE"
 }
 
+# Setup Docker network isolation between multiple Docker networks
 setup_isolation() {
         echo -n "Setup isolation.. "
         local bridge=$(docker network inspect $1 -f '{{(index .Options "com.docker.network.bridge.name")}}')
@@ -69,6 +71,7 @@ setup_isolation() {
         echo "DONE"
 }
 
+# Setup the basic network configuration for every container
 setup_container() {
         # for every network
         for network in $(docker inspect $1 -f '{{range $bridge, $conf := .NetworkSettings.Networks}}{{$bridge}}{{end}}'); do
@@ -98,6 +101,7 @@ setup_container() {
         done
 }
 
+# Open up external traffic to a single container in a specific network
 open_port() {
         container=$1
         dport=$2
@@ -113,11 +117,13 @@ open_port() {
         iptables -t nat -A DOCKER -p tcp -m tcp -s $ip_source --dport $dport -j DNAT --to-destination $ipaddress:$port
 }
 
+# Loop through networks and setup bridge traffic and isolation networks
 for network in $(docker network ls | grep -Ev 'host|none|NETWORK' | awk '{print $1}'); do
         setup_bridge $network
         setup_isolation $network
 done
 
+# Loop through containers and setup basic networking
 for container in $(docker ps -q); do
         setup_container $container
 done
@@ -129,4 +135,3 @@ iptables -A DOCKER-ISOLATION -j RETURN
 # iptables -t nat -A DOCKER ! -i docker0 -p tcp -m tcp -s SOURCE --dport 8000 -j DNAT --to-destination 172.17.0.2:80
 # or
 # open_port gifted_einstein 8000 80 192.168.0.0/24 data_network
-
