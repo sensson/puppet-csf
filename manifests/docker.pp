@@ -8,7 +8,7 @@ class csf::docker inherits csf {
 
   if $::csf::docker == 'present' {
     csf::rule { 'csf-rule-docker':
-      content => '. /etc/csf/docker.sh',
+      content => 'bash /etc/csf/docker.sh',
       order   => 1,
     }
   }
