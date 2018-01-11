@@ -11,8 +11,11 @@ describe 'csf class' do
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
+    end
+  end
 
-      # Test our Docker implementation
+  context 'test docker.sh' do
+    it 'should install docker.sh with no errors' do
       pp = <<-PUPPET
       class { 'csf': docker => 'present' }
       PUPPET
@@ -20,9 +23,7 @@ describe 'csf class' do
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
-  end
 
-  describe 'test docker.sh' do
     describe file('/etc/csf/docker.sh') do
       it { should be_file }
       its(:content) { should match 'setup_isolation' }

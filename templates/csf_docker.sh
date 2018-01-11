@@ -2,16 +2,19 @@
 #
 # Docker firewall rules
 #
-# We do not accept incoming traffic by default and it's recommended to
-# turn off the Docker implementation of iptables. This will handle all
-# rules for you instead.
+# It does not accept incoming traffic to containers by default.
 #
-# If Docker restarts you may need to restart the firewall too.
+# Make sure to disable Docker's iptables management with --iptables=false.
+#
+# CSF needs to be restarted whenever you make structural changes to Docker
+# such as your networks, bridges or IP configuration.
+#
+# Credits to Julien Kassar for his work to inspire us to come to this version.
 #
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-# BASIC FIREWALL RULES
+# Basic firewall rules
 iptables -N DOCKER
 iptables -N DOCKER-ISOLATION
 iptables -t nat -N DOCKER
@@ -38,6 +41,7 @@ setup_bridge() {
         echo "DONE"
 }
 
+# Setup Docker network isolation between multiple Docker networks
 setup_isolation() {
         echo -n "Setup isolation.. "
         local bridge=$(docker network inspect $1 -f '{{(index .Options "com.docker.network.bridge.name")}}')
@@ -68,6 +72,7 @@ setup_isolation() {
         echo "DONE"
 }
 
+# Setup the basic network configuration for every container
 setup_container() {
         # for every network
         for network in $(docker inspect $1 -f '{{range $bridge, $conf := .NetworkSettings.Networks}}{{$bridge}}{{end}}'); do
@@ -97,6 +102,7 @@ setup_container() {
         done
 }
 
+# Open up external traffic to a single container in a specific network
 open_port() {
         container=$1
         dport=$2
@@ -106,17 +112,19 @@ open_port() {
 
         : "${container:?container needs to be set}"
         : "${dport:?dport needs to be set}"
-        : "${port:?dport needs to be set}"
+        : "${port:?port needs to be set}"
 
         ipaddress=$(docker inspect $container -f "{{(index .NetworkSettings.Networks \"${network}\").IPAddress}}")
         iptables -t nat -A DOCKER -p tcp -m tcp -s $ip_source --dport $dport -j DNAT --to-destination $ipaddress:$port
 }
 
+# Loop through networks and setup bridge traffic and isolation networks
 for network in $(docker network ls | grep -Ev 'host|none|NETWORK' | awk '{print $1}'); do
         setup_bridge $network
         setup_isolation $network
 done
 
+# Loop through containers and setup basic networking
 for container in $(docker ps -q); do
         setup_container $container
 done
