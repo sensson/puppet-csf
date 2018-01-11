@@ -11,12 +11,13 @@ class csf (
 
   # This controls CSF restarts - keep in mind that this will also enable it.
   service { 'csf':
-    ensure  => $service_ensure,
-    enable  => $service_enable,
-    require => Class['::csf::install'],
+    ensure     => $service_ensure,
+    enable     => $service_enable,
+    require    => Class['::csf::install'],
+    hasrestart => true,
   }
 
-  # This is just an 'in case it does not work' scenario, if CSF blocks port 
+  # This is just an 'in case it does not work' scenario, if CSF blocks port
   # 8140, make sure it stays open
   exec { 'csf-open-puppet':
     command => '/sbin/iptables -I OUTPUT -p tcp --dport 8140 -j ACCEPT',

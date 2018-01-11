@@ -17,6 +17,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # Basic firewall rules
 iptables -N DOCKER
 iptables -N DOCKER-ISOLATION
+iptables -t nat -N DOCKER
 iptables -t nat -A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
 iptables -t nat -A OUTPUT ! -d 127.0.0.0/8 -m addrtype --dst-type LOCAL -j DOCKER
 iptables -A FORWARD -j DOCKER-ISOLATION
