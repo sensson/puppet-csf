@@ -1,6 +1,6 @@
 {
   "name": "sensson-csf",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "author": "sensson",
   "license": "Apache-2.0",
   "summary": "A module to manage ConfigServer Firewall and the Login Failure Daemon",
