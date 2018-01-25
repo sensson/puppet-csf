@@ -34,4 +34,30 @@ describe 'csf class' do
       its(:content) { should match 'docker.sh' }
     end
   end
+
+  context 'test reload' do
+    it 'should reload the firewall' do
+      pp = <<-PUPPET
+      class { 'csf': }
+      PUPPET
+
+      apply_manifest(pp, catch_failures: true)
+
+      rule = <<-PUPPET
+      class { 'csf': }
+      csf::rule { 'test':
+        content => '/sbin/iptables -I INPUT -p tcp --dport 80 -s 192.168.0.1/32 -j ACCEPT'
+      }
+      PUPPET
+
+      apply_manifest(rule, catch_failures: true)
+    end
+
+    describe iptables do
+      # This uses iptables -S, keep in mind that iptables rules may not look
+      # exactly the same as you have added them. This is why this check is
+      # really basic
+      it { should have_rule('-s 192.168.0.1/32') }
+    end
+  end
 end
