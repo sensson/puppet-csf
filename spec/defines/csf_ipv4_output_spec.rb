@@ -16,9 +16,9 @@ describe 'csf::ipv4::output' do
         end
 
         context 'csf::ipv4::output without parameters' do
-          it { is_expected.to contain_csf__rule('csf-tcp-OUTPUT-80') }
-          it { is_expected.to contain_csf__rule('csf-tcp-OUTPUT-80').with_content(/iptables -I OUTPUT -p tcp --dport 80 -j ACCEPT/) }
-          it { is_expected.to contain_concat__fragment('csf-tcp-OUTPUT-80') }
+          it { is_expected.to contain_csf__rule('csf-ip4-tcp-OUTPUT-80') }
+          it { is_expected.to contain_csf__rule('csf-ip4-tcp-OUTPUT-80').with_content(/iptables -I OUTPUT -p tcp --dport 80 -j ACCEPT/) }
+          it { is_expected.to contain_concat__fragment('csf-ip4-tcp-OUTPUT-80') }
         end
       end
     end
