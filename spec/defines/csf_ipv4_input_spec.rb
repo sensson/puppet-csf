@@ -16,9 +16,9 @@ describe 'csf::ipv4::input' do
         end
 
         context 'csf::ipv4::input without parameters' do
-          it { is_expected.to contain_csf__rule('csf-tcp-INPUT-80') }
-          it { is_expected.to contain_csf__rule('csf-tcp-INPUT-80').with_content(/iptables -I INPUT -p tcp --dport 80 -j ACCEPT/) }
-          it { is_expected.to contain_concat__fragment('csf-tcp-INPUT-80') }
+          it { is_expected.to contain_csf__rule('csf-ip4-tcp-INPUT-80') }
+          it { is_expected.to contain_csf__rule('csf-ip4-tcp-INPUT-80').with_content(/iptables -I INPUT -p tcp --dport 80 -j ACCEPT/) }
+          it { is_expected.to contain_concat__fragment('csf-ip4-tcp-INPUT-80') }
         end
       end
     end

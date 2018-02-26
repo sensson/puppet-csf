@@ -4,7 +4,7 @@
 
 This module manages ConfigServer Firewall and the Login Failure Daemon.
 
-By default it will open up port 8140 for outgoing connections to the puppet 
+By default it will open up port 8140 for outgoing connections to the puppet
 master. All other ports are unmanaged and set to the default that comes
 with the installation of CSF. You definitely want to change this.
 
@@ -17,7 +17,7 @@ This will install CSF and only allow access through port 22.
 ```
 class { 'csf': }
 csf::config { 'TCP_IN': value => '22' }
-``` 
+```
 
 #### Open up a port in CSF
 
@@ -70,7 +70,7 @@ functions accept arrays too.
 
 #### Add advanced rules to CSF
 
-This module allows you to set up advanced iptables rules if you need to. 
+This module allows you to set up advanced iptables rules if you need to.
 
 For example:
 
@@ -82,9 +82,9 @@ csf::rule { 'csf-rule-port-80-from-192.168.0.1':
 ```
 
 This will set up a rule that allows traffic to port 80 only from the internal
-ip address 192.168.0.1/32. You can order firewall rules if needed. It will by 
+ip address 192.168.0.1/32. You can order firewall rules if needed. It will by
 default add rules to /etc/csf/csfpost.sh, but you can specify csfpre too by using
-`target => '/etc/csf/csfpre.sh` if you need to run rules before other parts are 
+`target => '/etc/csf/csfpre.sh` if you need to run rules before other parts are
 initialized.
 
 Removing a csf::rule from your configuration will automatically remove it from
@@ -103,8 +103,8 @@ csf::ipv4::input::ports:
 
 Will open up port 82 UDP and 81 TCP. Similar Hiera settings are available for
 `csf::ipv4::output::ports`, `csf::allow::hosts`, `csf::ignore::hosts`,
-`csf::deny::hosts` and `csf::config::settings`. Setting {} is required when 
-you're not specifying any other parameters. All settings from the parent are 
+`csf::deny::hosts` and `csf::config::settings`. Setting {} is required when
+you're not specifying any other parameters. All settings from the parent are
 supported.
 
 ## Reference
@@ -115,7 +115,7 @@ supported.
 
 ##### `download_location`
 
-This allows you to override the download location. Defaults to https://download.configserver.com/csf.tgz 
+This allows you to override the download location. Defaults to https://download.configserver.com/csf.tgz
 
 ##### `service_ensure`
 
@@ -177,6 +177,38 @@ The protocol it should be opened for. Defaults to 'tcp'.
 #### csf::ipv4::output
 
 Open up a port for outgoing ipv4 connections.
+
+```
+csf::ipv4::output { [ '80', '443']: proto => tcp, }
+```
+
+##### `port`
+
+The port you want to open. Defaults to the title of the resource.
+
+##### `proto`
+
+The protocol it should be opened for. Defaults to 'tcp'.
+
+#### csf::ipv6::input
+
+Open up a port for incoming ipv6 connections.
+
+```
+csf::ipv6::input { [ '80', '443']: proto => tcp, }
+```
+
+##### `port`
+
+The port you want to open. Defaults to the title of the resource.
+
+##### `proto`
+
+The protocol it should be opened for. Defaults to 'tcp'.
+
+#### csf::ipv6::output
+
+Open up a port for outgoing ipv6 connections.
 
 ```
 csf::ipv4::output { [ '80', '443']: proto => tcp, }

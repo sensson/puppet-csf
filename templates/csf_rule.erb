@@ -1,1 +1,1 @@
-/sbin/iptables -I <%= @chain %> -p <%= @proto %> --dport <%= @port %> -j ACCEPT
+/sbin/<%= @iptables %> -I <%= @chain %> -p <%= @proto %> --dport <%= @port %> -j ACCEPT

@@ -34,8 +34,8 @@ describe 'csf::install' do
 
           # make sure port 8140 is always open
           it { is_expected.to contain_csf__ipv4__output('8140').with('require' => 'Exec[csf-install]') }
-          it { is_expected.to contain_csf__rule('csf-tcp-OUTPUT-8140') }
-          it { is_expected.to contain_concat__fragment('csf-tcp-OUTPUT-8140') }
+          it { is_expected.to contain_csf__rule('csf-ip4-tcp-OUTPUT-8140') }
+          it { is_expected.to contain_concat__fragment('csf-ip4-tcp-OUTPUT-8140') }
         end
       end
     end
