@@ -29,7 +29,7 @@ describe 'csf::docker' do
 
           it { is_expected.to contain_file('/etc/csf/docker.sh').with_ensure('present') }
           it { is_expected.to contain_csf__rule('csf-rule-docker') }
-          it { is_expected.to contain_csf__rule('csf-rule-docker').with_content('bash /etc/csf/docker.sh') }
+          it { is_expected.to contain_csf__rule('csf-rule-docker').with_content('source /etc/csf/docker.sh') }
           it { is_expected.to contain_concat__fragment('csf-rule-docker') }
         end
       end
