@@ -1,6 +1,6 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.3']
+puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.3', '< 6']
 gem 'facter', '<= 2.4.6', '>= 1.7.0'
 gem 'puppet', puppetversion
 gem 'puppet-lint', '>= 1.0.0'
