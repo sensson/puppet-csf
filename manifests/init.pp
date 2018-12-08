@@ -60,14 +60,14 @@ class csf (
   }
 
   # Create a set of resources that you can specify in Hiera
-  $csf_ipv4_input_ports = hiera('csf::ipv4::input::ports', {})
-  $csf_ipv4_output_ports = hiera('csf::ipv4::output::ports', {})
-  $csf_ipv6_input_ports = hiera('csf::ipv6::input::ports', {})
-  $csf_ipv6_output_ports = hiera('csf::ipv6::output::ports', {})
-  $csf_allow_hosts = hiera('csf::allow::hosts', {})
-  $csf_ignore_hosts = hiera('csf::ignore::hosts', {})
-  $csf_deny_hosts = hiera('csf::deny::hosts', {})
-  $csf_config_settings = hiera('csf::config::settings', {})
+  $csf_ipv4_input_ports = lookup('csf::ipv4::input::ports', Hash, 'deep', {})
+  $csf_ipv4_output_ports = lookup('csf::ipv4::output::ports', Hash, 'deep', {})
+  $csf_ipv6_input_ports = lookup('csf::ipv6::input::ports', Hash, 'deep', {})
+  $csf_ipv6_output_ports = lookup('csf::ipv6::output::ports', Hash, 'deep', {})
+  $csf_allow_hosts = lookup('csf::allow::hosts', Hash, 'deep', {})
+  $csf_ignore_hosts = lookup('csf::ignore::hosts', Hash, 'deep', {})
+  $csf_deny_hosts = lookup('csf::deny::hosts', Hash, 'deep', {})
+  $csf_config_settings = lookup('csf::config::settings', Hash, 'deep', {})
   create_resources(csf::ipv4::input, $csf_ipv4_input_ports)
   create_resources(csf::ipv4::output, $csf_ipv4_output_ports)
   create_resources(csf::ipv6::input, $csf_ipv6_input_ports)
