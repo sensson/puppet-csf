@@ -15,7 +15,7 @@ class csf (
     enable     => $service_enable,
     require    => Class['::csf::install'],
     hasrestart => true,
-    restart    => '/usr/sbin/csf -r',
+    restart    => '/usr/sbin/csf -ra',
   }
 
   # This is just an 'in case it does not work' scenario, if CSF blocks port
