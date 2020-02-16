@@ -353,6 +353,7 @@ This module has been tested on:
 * Debian 8
 * CentOS 6
 * CentOS 7
+* CentOS 8
 * Ubuntu 14.04
 * Ubuntu 16.04
 
