@@ -353,6 +353,7 @@ This module has been tested on:
 * Debian 8
 * CentOS 6
 * CentOS 7
+* CentOS 8
 * Ubuntu 14.04
 * Ubuntu 16.04
 
@@ -408,6 +409,7 @@ BEAKER_destroy=onpass bundle exec rake beaker:debian7
 BEAKER_destroy=onpass bundle exec rake beaker:debian8
 BEAKER_destroy=onpass bundle exec rake beaker:centos6
 BEAKER_destroy=onpass bundle exec rake beaker:centos7
+BEAKER_destroy=onpass BEAKER_PUPPET_COLLECTION=puppet5 bundle exec rake beaker:centos8
 BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1404
 BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1604
 ```
