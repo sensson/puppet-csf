@@ -8,6 +8,11 @@ class csf::install inherits csf {
     }
   }
 
+  package { 'iptables':
+    ensure => installed,
+    before => Exec['csf-install'],
+  }
+
   package { 'csf-perl':
     ensure => installed,
     name   => 'perl',

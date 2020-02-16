@@ -23,6 +23,8 @@ describe 'csf::install' do
           it { is_expected.to contain_exec('csf-install').with('notify' => 'Service[csf]') }
           it { is_expected.to contain_exec('csf-install').with('require' => 'Package[csf-perl]') }
 
+          it { is_expected.to contain_package('iptables').with('ensure' => 'installed') }
+
           if facts[:operatingsystem] == 'CentOS' && facts[:operatingsystemmajrelease].to_i < 7
             it { is_expected.to contain_package('iptables-ipv6').with('ensure' => 'installed') }
             it { is_expected.to contain_package('iptables-ipv6').with('before' => 'Exec[csf-install]') }
