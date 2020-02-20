@@ -8,6 +8,7 @@ define csf::global($ipaddress = '127.0.0.1', $type = 'ignore', $ensure = 'presen
     default: { fail( "unknown value ${type}" ) }
     'ignore',
     'pignore',
+    'fignore',
     'deny',
     'allow': {
       file_line { "csf-${ipaddress}-${type}":
