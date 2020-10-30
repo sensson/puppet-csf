@@ -1,0 +1,10 @@
+---
+
+csf::packages::required:
+  - perl
+  - iptables
+
+csf::packages::recommended:
+  - libwww-perl
+  - liblwp-protocol-https-perl
+  - libgd-graph-perl
