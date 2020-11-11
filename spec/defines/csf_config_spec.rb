@@ -17,7 +17,7 @@ describe 'csf::config' do
 
         context 'csf::config without parameters' do
           it 'fails' do
-            expect { subject.call } .to raise_error(/Please set a value for/)
+            expect { subject.call }.to raise_error(/Please set a value for/)
           end
         end
 
