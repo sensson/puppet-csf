@@ -349,13 +349,15 @@ rules in a particular order. Defaults to '99'
 
 This module has been tested on:
 
-* Debian 7
 * Debian 8
-* CentOS 6
+* Debian 9
+* Debian 10
 * CentOS 7
 * CentOS 8
 * Ubuntu 14.04
 * Ubuntu 16.04
+* Ubuntu 18.04
+* Ubuntu 20.04
 
 ## Development
 
@@ -364,13 +366,6 @@ of saying thanks.
 
 This module is tested against the Ruby versions from Puppet's support
 matrix. Please make sure you have a supported version of Ruby installed.
-
-Should you wish to clone this repository you have to make sure that you
-clone it recursively. This Puppet module uses git submodules.
-
-```
-git clone --recursive git@github.com:sensson/puppet-csf.git
-```
 
 If you want to contribute please:
 
@@ -405,13 +400,16 @@ You can run Beaker tests with:
 
 ```
 bundle exec rake spec_prep
-BEAKER_destroy=onpass bundle exec rake beaker:debian7
 BEAKER_destroy=onpass bundle exec rake beaker:debian8
+BEAKER_destroy=onpass bundle exec rake beaker:debian9
+BEAKER_destroy=onpass bundle exec rake beaker:debian10
 BEAKER_destroy=onpass bundle exec rake beaker:centos6
 BEAKER_destroy=onpass BEAKER_PUPPET_COLLECTION=puppet5 bundle exec rake beaker:centos7
 BEAKER_destroy=onpass BEAKER_PUPPET_COLLECTION=puppet5 bundle exec rake beaker:centos8
 BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1404
 BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1604
+BEAKER_destroy=onpass bundle exec rake beaker:ubuntu1804
+BEAKER_destroy=onpass bundle exec rake beaker:ubuntu2004
 ```
 
 We recommend specifying BEAKER_destroy=onpass as it will keep the

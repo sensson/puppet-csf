@@ -39,7 +39,7 @@ describe 'csf::global' do
           end
 
           it 'fails' do
-            expect { subject.call } .to raise_error(/unknown value wrong/)
+            expect { subject.call }.to raise_error(/unknown value wrong/)
           end
         end
       end

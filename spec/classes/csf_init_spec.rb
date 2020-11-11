@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../facts.rb'
+require_relative '../facts'
 
 describe 'csf' do
   context 'supported operating systems' do

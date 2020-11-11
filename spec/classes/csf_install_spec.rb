@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../facts.rb'
+require_relative '../facts'
 
 describe 'csf::install' do
   context 'supported operating systems' do
@@ -16,18 +16,25 @@ describe 'csf::install' do
           it { is_expected.to contain_class('csf::install') }
 
           # verify packages and installation
-          it { is_expected.to contain_package('csf-perl') }
+          it { is_expected.to contain_package('perl') }
           it { is_expected.to contain_exec('csf-install').with('cwd' => '/tmp') }
           it { is_expected.to contain_exec('csf-install').with('command' => '/usr/bin/curl -o csf.tgz https://download.configserver.com/csf.tgz && tar -xzf csf.tgz && cd csf && sh install.sh') }
           it { is_expected.to contain_exec('csf-install').with('creates' => '/usr/sbin/csf') }
           it { is_expected.to contain_exec('csf-install').with('notify' => 'Service[csf]') }
-          it { is_expected.to contain_exec('csf-install').with('require' => 'Package[csf-perl]') }
+          it { is_expected.to contain_exec('csf-install').with('require' => 'Package[perl]') }
 
-          it { is_expected.to contain_package('iptables').with('ensure' => 'installed') }
+          it { is_expected.to contain_package('iptables').with('ensure' => 'present') }
 
-          if facts[:operatingsystem] == 'CentOS' && facts[:operatingsystemmajrelease].to_i < 7
-            it { is_expected.to contain_package('iptables-ipv6').with('ensure' => 'installed') }
-            it { is_expected.to contain_package('iptables-ipv6').with('before' => 'Exec[csf-install]') }
+          if facts[:operatingsystem] == 'CentOS'
+            it { is_expected.to contain_package('perl-libwww-perl').with('ensure' => 'present') }
+            it { is_expected.to contain_package('perl-LWP-Protocol-https').with('ensure' => 'present') }
+            it { is_expected.to contain_package('perl-GDGraph').with('ensure' => 'present') }
+          end
+
+          if facts[:operatingsystem] == 'Ubuntu'
+            it { is_expected.to contain_package('libwww-perl').with('ensure' => 'present') }
+            it { is_expected.to contain_package('liblwp-protocol-https-perl').with('ensure' => 'present') }
+            it { is_expected.to contain_package('libgd-graph-perl').with('ensure' => 'present') }
           end
 
           # check our configuration

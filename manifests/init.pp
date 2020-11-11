@@ -1,9 +1,10 @@
 # csf
 class csf (
-  $download_location = $::csf::params::download_location,
-  $service_ensure = $::csf::params::service_ensure,
-  $service_enable = $::csf::params::service_enable,
-  $docker = $::csf::params::docker,
+  $download_location            = $::csf::params::download_location,
+  $service_ensure               = $::csf::params::service_ensure,
+  $service_enable               = $::csf::params::service_enable,
+  $docker                       = $::csf::params::docker,
+  $install_recommended_packages = $::csf::params::install_recommended_packages,
 ) inherits csf::params {
   # Install and configure CSF as required
   include ::csf::install
