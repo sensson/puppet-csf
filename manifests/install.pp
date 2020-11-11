@@ -6,7 +6,6 @@ class csf::install inherits csf {
 
   ensure_packages ($required_packages, {
     ensure => 'present',
-    before => Exec['csf-install'],
   })
 
   if $::csf::install_recommended_packages {
@@ -14,7 +13,6 @@ class csf::install inherits csf {
 
     ensure_packages ($recommended_packages, {
       ensure => 'present',
-      before => Exec['csf-install'],
     })
   }
 
